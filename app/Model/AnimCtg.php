@@ -146,7 +146,7 @@ class AnimCtg extends AppModel {
 		$this->CrudBase->sql_sanitize($kjs); // SQLサニタイズ
 		
 		if(!empty($kjs['kj_main'])){
-			$cnds[]="CONCAT( IFNULL(AnimCtg.anim_ctg_name, '') ,IFNULL(AnimCtg.anim_ctg_date, '') ,IFNULL(AnimCtg.note, '')) LIKE '%{$kjs['kj_main']}%'";
+			$cnds[]="CONCAT( IFNULL(AnimCtg.anim_ctg_name, '') ,IFNULL(AnimCtg.note, '')) LIKE '%{$kjs['kj_main']}%'";
 		}
 		
 		// CBBXS-1003
