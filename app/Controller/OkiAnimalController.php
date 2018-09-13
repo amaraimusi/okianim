@@ -224,7 +224,7 @@ class OkiAnimalController extends CrudBaseController {
 		App::uses('Sanitize', 'Utility');
 	
 		$this->autoRender = false;//ビュー(ctp)を使わない。
-//		if(empty($this->Auth->user())) return 'Error:login is needed.';// 認証中でなければエラー
+		//if(empty($this->Auth->user())) return 'Error:login is needed.';// 認証中でなければエラー
 	
 		// JSON文字列をパースしてエンティティを取得する
 		$json=$_POST['key1'];
@@ -269,7 +269,7 @@ class OkiAnimalController extends CrudBaseController {
 		$this->autoRender = false;//ビュー(ctp)を使わない。
 		
 		App::uses('Sanitize', 'Utility');
-//		if(empty($this->Auth->user())) return 'Error:login is needed.';// 認証中でなければエラー
+		//if(empty($this->Auth->user())) return 'Error:login is needed.';// 認証中でなければエラー
 		
 		
 		$json=$_POST['key1'];
@@ -299,7 +299,7 @@ class OkiAnimalController extends CrudBaseController {
 	 */
 	public function csv_fu(){
 		$this->autoRender = false;//ビュー(ctp)を使わない。
-//		if(empty($this->Auth->user())) return 'Error:login is needed.';// 認証中でなければエラー
+		if(empty($this->Auth->user())) return 'Error:login is needed.';// 認証中でなければエラー
 		
 		$this->csv_fu_base($this->OkiAnimal,array('id','oki_animal_val','oki_animal_name','oki_animal_date','oki_animal_group','oki_animal_dt','img_fn','note','sort_no'));
 		
@@ -582,32 +582,32 @@ class OkiAnimalController extends CrudBaseController {
 			'sort_no'=>array(
 					'name'=>'順番',
 					'row_order'=>'OkiAnimal.sort_no',
-					'clm_show'=>1,
+					'clm_show'=>0,
 			),
 			'delete_flg'=>array(
 					'name'=>'無効フラグ',
 					'row_order'=>'OkiAnimal.delete_flg',
-					'clm_show'=>1,
+					'clm_show'=>0,
 			),
 			'update_user'=>array(
 					'name'=>'更新者',
 					'row_order'=>'OkiAnimal.update_user',
-					'clm_show'=>1,
+					'clm_show'=>0,
 			),
 			'ip_addr'=>array(
 					'name'=>'IPアドレス',
 					'row_order'=>'OkiAnimal.ip_addr',
-					'clm_show'=>1,
+					'clm_show'=>0,
 			),
 			'created'=>array(
 					'name'=>'生成日時',
 					'row_order'=>'OkiAnimal.created',
-					'clm_show'=>1,
+					'clm_show'=>0,
 			),
 			'modified'=>array(
 					'name'=>'更新日',
 					'row_order'=>'OkiAnimal.modified',
-					'clm_show'=>1,
+					'clm_show'=>0,
 			),
 
 			// CBBXE

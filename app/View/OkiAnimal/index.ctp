@@ -3,6 +3,7 @@ $this->CrudBase->init(array('model_name'=>'OkiAnimal'));
 
 // CSSファイルのインクルード
 $cssList = $this->CrudBase->getCssList();
+$cssList[] = 'OkiAnimal/index'; // 当画面専用CSS
 $this->assign('css', $this->Html->css($cssList));
 
 // JSファイルのインクルード
@@ -85,10 +86,6 @@ $this->assign('script', $this->Html->script($jsList,array('charset'=>'utf-8')));
 		<button type="button" class="btn btn-warning" onclick="newInpShow(this);">
 			<span class="glyphicon glyphicon-plus-sign" title="新規入力"></span></button>
 	</div>
-	
-	<div style="display:inline-block;margin-left:20px">
-		<a href="anim_ctg" class="btn btn-primary btn-xs">動物カテゴリ</a>
-	</div>
 </div><!-- cb_func_line -->
 
 <div style="clear:both"></div>
@@ -150,7 +147,7 @@ foreach($data as $i=>$ent){
 	$this->CrudBase->tdStr($ent,'animal_name');
 	$this->CrudBase->tdList($ent,'anim_ctg_id',$animCtgIdList);
 	$this->CrudBase->tdStr($ent,'place');
-	$this->CrudBase->tdStr($ent,'img_fn');
+	$this->CrudBase->tdImage($ent,'img_fn');
 	$this->CrudBase->tdNote($ent,'note');
 	$this->CrudBase->tdPlain($ent,'sort_no');
 	$this->CrudBase->tdDeleteFlg($ent,'delete_flg');
@@ -224,10 +221,10 @@ foreach($data as $i=>$ent){
 		</td></tr>
 
 		<tr><td>動物画像: </td><td>
-			<input type="text" name="img_fn" class="valid" value=""  maxlength="256" title="256文字以内で入力してください" />
-			<label class="text-danger" for="img_fn"></label>
+			<label for="img_fn_n" class="fuk_label" style="width:200px;height:240px;">
+				<input type="file" id="img_fn_n" class="img_fn" style="display:none" accept="image/*" title="画像ファイルをドラッグ＆ドロップ" />
+			</label>
 		</td></tr>
-
 		<tr><td>備考： </td><td>
 			<textarea name="note" ></textarea>
 			<label class="text-danger" for="note"></label>
@@ -287,10 +284,10 @@ foreach($data as $i=>$ent){
 		</td></tr>
 
 		<tr><td>動物画像: </td><td>
-			<input type="text" name="img_fn" class="valid" value=""  maxlength="256" title="256文字以内で入力してください" />
-			<label class="text-danger" for="img_fn"></label>
+			<label for="img_fn_e" class="fuk_label" style="width:200px;height:240px;">
+				<input type="file" id="img_fn_e" class="img_fn" style="display:none" accept="image/*" title="画像ファイルをドラッグ＆ドロップ" />
+			</label>
 		</td></tr>
-
 		<tr><td>備考： </td><td>
 			<textarea name="note"></textarea>
 			<label class="text-danger" for="note"></label>
