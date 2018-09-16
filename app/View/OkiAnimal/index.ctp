@@ -86,6 +86,8 @@ $this->assign('script', $this->Html->script($jsList,array('charset'=>'utf-8')));
 		<button type="button" class="btn btn-warning" onclick="newInpShow(this);">
 			<span class="glyphicon glyphicon-plus-sign" title="新規入力"></span></button>
 	</div>
+	
+	<a href="anim_ctg" class="btn btn-primary btn-xs">動物カテゴリ</a>
 </div><!-- cb_func_line -->
 
 <div style="clear:both"></div>
@@ -108,6 +110,8 @@ $this->assign('script', $this->Html->script($jsList,array('charset'=>'utf-8')));
 
 </div><!-- detail_div -->
 
+<br>
+見本Webアプリです。お試しでデータの編集や削除をすることができます。データは適当タイミングで元に戻します。 
 
 <div style="margin-top:8px;">
 	<div style="display:inline-block">
