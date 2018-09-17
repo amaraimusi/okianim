@@ -14,8 +14,8 @@
  * td内部へのSetやGetは、先頭要素とtd直下にしか対応していない。
  * 複雑なtd内部にも対応するとなるとコールバックを検討しなければならない。
  * 
- * @date 2016-9-21 | 2018-9-9
- * @version 2.4.1
+ * @date 2016-9-21 | 2018-9-17
+ * @version 2.4.2
  * 
  * @param object param
  *  - src_code	画面コード（スネーク記法）
@@ -561,6 +561,9 @@ class CrudBase{
 
 		if(this._empty(option)) option = {};
 
+		// 登録ボタンを押せなくする
+		this._toggleRegBtn('new_inp',0);
+
 		// フィールドデータからファイルアップロード要素であるフィールドリストを抽出する
 		var fuEnts = this._extractFuEnt(this.fieldData,'new_inp');
 
@@ -626,7 +629,7 @@ class CrudBase{
 			contentType : false,
 		})
 		.done((str_json, type) =>{
-
+			this._toggleRegBtn('new_inp',1);// 登録ボタンを押せるようにする
 			var ent;
 			try{
 				ent =jQuery.parseJSON(str_json);//パース
@@ -668,6 +671,7 @@ class CrudBase{
 
 		})
 		.fail((jqXHR, statusText, errorThrown) =>{
+			this._toggleRegBtn('new_inp',1);// 登録ボタンを押せるようにする
 			jQuery('#err').html(jqXHR.responseText);//詳細エラーの出力
 			alert(statusText);
 		});
@@ -693,6 +697,9 @@ class CrudBase{
 
 		if(this._empty(option)) option = {};
 
+		// 登録ボタンを押せなくする
+		this._toggleRegBtn('edit',0);
+		
 		// アクティブ行インデックスを取得する
 		var index = this.param.active_row_index; 
 
@@ -749,6 +756,9 @@ class CrudBase{
 			contentType: false,
 
 		}).done((str_json, type) => {
+			
+			this._toggleRegBtn('edit',1);// 登録ボタンを押せるようにする
+			
 			var ent = null;
 			try{
 				var ent =jQuery.parseJSON(str_json);//パース
@@ -797,6 +807,7 @@ class CrudBase{
 			}
 
 		}).fail((jqXHR, statusText, errorThrown) => {
+			this._toggleRegBtn('edit',1);// 登録ボタンを押せるようにする
 			jQuery('#err').html(jqXHR.responseText);//詳細エラーの出力
 			alert(statusText);
 		});
@@ -2056,14 +2067,12 @@ class CrudBase{
 	/**
 	 * フォーム要素を取得する
 	 * @param form_type フォーム種別
-	 * @param cache キャッシュフラグ 0:キャッシュから取得しない , 1:キャッシュがあればそこから取得
+	 * @param cache キャッシュフラグ 0:キャッシュから取得しない , 1:キャッシュがあればそこから取得(デフォルト）
 	 * @returns フォーム要素
 	 */
 	getForm(form_type,cache){
 
-		if(cache == null){
-			cache = 1;
-		}
+		if(cache == null) cache = 1;
 
 		var form;
 		if(form_type=='new_inp' || form_type=='copy'){
@@ -2989,7 +2998,7 @@ class CrudBase{
 		if(this.param.device_type == 'sp'){
 			var tblElm = form.find('table');
 			tblElm.addClass('tbl_sp'); // ＳＰ版スタイルを適用
-			tblElm.find('label').hide(); // レイアウトが崩れるのでlabel要素を隠す
+			tblElm.find('label.text-danger').hide(); // レイアウトが崩れるのでlabel要素を隠す
 		}
 		
 
@@ -3818,6 +3827,30 @@ class CrudBase{
 				'reflect_on_tbl':1, // 1:HTMLテーブルにdataを反映する
 		}
 		this.saveRequest(data,option);// 自動保存の依頼をする
+	}
+	
+	
+	/**
+	 * 登録ボタン切替
+	 * @param string フォーム種別 new_inp,edit
+	 * @param int active_flg アクティブフラグ 0:押せなくする , 1:押せるようにする
+	 */
+	_toggleRegBtn(form_type,active_flg){
+		
+		var form = this.getForm(form_type);// フォーム要素を取得
+		
+		var regBtns = form.find('.reg_btn');
+		var regBtnMsgs = form.find('.reg_btn_msg');
+		if(active_flg == 0){
+			regBtns.prop('disabled',true);
+			regBtnMsgs.html('　登録中・・・');
+			
+		}else{
+			regBtns.prop('disabled',false);
+			regBtnMsgs.html('');
+			
+		}
+
 	}
 	
 	/**

@@ -238,8 +238,8 @@ foreach($data as $i=>$ent){
 	</tbody></table>
 	
 
-	<button type="button" onclick="newInpReg();" class="btn btn-success">
-		<span class="glyphicon glyphicon-ok"></span>
+	<button type="button" onclick="newInpReg();" class="btn btn-success reg_btn">
+		<span class="glyphicon glyphicon-ok reg_btn_msg"></span>
 	</button>
 
 	</div><!-- panel-body -->
@@ -263,8 +263,8 @@ foreach($data as $i=>$ent){
 	</div>
 	<div class="panel-body">
 	<div class="err text-danger"></div>
-	<button type="button"  onclick="editReg();" class="btn btn-success">
-		<span class="glyphicon glyphicon-ok"></span>
+	<button type="button"  onclick="editReg();" class="btn btn-success reg_btn" >
+		<span class="glyphicon glyphicon-ok reg_btn_msg"></span>
 	</button>
 	<table><tbody>
 
@@ -303,8 +303,8 @@ foreach($data as $i=>$ent){
 	
 	
 
-	<button type="button"  onclick="editReg();" class="btn btn-success">
-		<span class="glyphicon glyphicon-ok"></span>
+	<button type="button"  onclick="editReg();" class="btn btn-success reg_btn">
+		<span class="glyphicon glyphicon-ok reg_btn_msg"></span>
 	</button>
 	<hr>
 	

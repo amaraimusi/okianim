@@ -146,7 +146,7 @@ class OkiAnimal extends AppModel {
 		$this->CrudBase->sql_sanitize($kjs); // SQLサニタイズ
 		
 		if(!empty($kjs['kj_main'])){
-			$cnds[]="CONCAT( IFNULL(OkiAnimal.animal_name, '') ,IFNULL(OkiAnimal.note, '')) LIKE '%{$kjs['kj_main']}%'";
+			$cnds[]="CONCAT( IFNULL(OkiAnimal.animal_name, '') ,IFNULL(OkiAnimal.place, '') ,IFNULL(OkiAnimal.note, '')) LIKE '%{$kjs['kj_main']}%'";
 		}
 		
 		// CBBXS-1003

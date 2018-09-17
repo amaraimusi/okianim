@@ -5,8 +5,9 @@
  * CurdBase.jsのコンポーネントの一つ
  * 
  * @date 2018-8-24
- * @version 1.0
+ * @version 1.1
  * @history
+ * 2018-9-17 画像ファイルが空の時に新規登録すると2行目のサムネイル画像が表示される
  * 2018-8-24 開発
  * 
  */
@@ -27,6 +28,8 @@ class CbFileUploadComponent{
 		this.fuIds = fuIds; // file要素idリスト
 		this.fields = this._fueIdsToFields(fuIds); // FUフィールドリスト
 		this.dpData = this._makeDtData(this.fields); // ディレクトリパス情報
+		
+		this.none_img_fp = 'img/icon/none.gif';
 		
 	}
 	
@@ -279,18 +282,27 @@ class CbFileUploadComponent{
 	 */
 	setImageToTr(tr,ent){
 
-		console.log('test=setImageToTr');//■■■□□□■■■□□□■■■□□□)
 		for(var i in this.fields){
 			var field = this.fields[i];
 			
 			// TR要素からLabel要素を取得する。
 			var lbl = tr.find("[for='" + field + "']");
 			if(!lbl[0]) continue;
-			
 			var imgElm = lbl.find('img');
 			if(imgElm[0]){
 				
 				var fn = ent[field]; // ファイル名
+				
+				// ファイル名が空である場合、空画像パスをセットする。
+				if(fn == null || fn == ''){
+					imgElm.attr('src',this.none_img_fp);
+					var aElm = lbl.find('a');
+					if(aElm[0]){
+						aElm.attr('href',this.none_img_fp);
+					}
+					return;
+				}
+
 				var orig_dp = this.dpData[field]['orig']; // オリジナルディレクトリパス
 				var orig_fp = this._joinDpFn(orig_dp,fn); // オリジナルファイルパス
 				var thum_dp = this.dpData[field]['thum1']; // サムネイルディレクトリパス
@@ -302,7 +314,7 @@ class CbFileUploadComponent{
 				imgObj.onload = () => {
 					imgElm.attr('src',thum_fp);
 				};
-				
+
 				// アンカー要素を取得し、オリジナルファイルパスをセットする。
 				var aElm = lbl.find('a');
 				if(aElm[0]){
