@@ -4,11 +4,12 @@
  * @note
  * CurdBase.jsのコンポーネントの一つ
  * 
- * @date 2018-8-24
- * @version 1.1
+ * @date 2018-8-24 | 2018-9-18
+ * @version 1.1.1
  * @history
- * 2018-9-17 画像ファイルが空の時に新規登録すると2行目のサムネイル画像が表示される
- * 2018-8-24 開発
+ * 2018-9-18 v1.1.1 コールバックパラメータを追加（pacb_param)
+ * 2018-9-17 v1.1.0 画像ファイルが空の時に新規登録すると2行目のサムネイル画像が表示される
+ * 2018-8-24 v1.0.0 開発
  * 
  */
 class CbFileUploadComponent{
@@ -18,12 +19,13 @@ class CbFileUploadComponent{
 	 * コンストラクタ
 	 * 
 	 * @param param fuIds file要素idリスト
+	 * @param object option FileUploadK:addEventのoption
 	 * 
 	 */
-	constructor(fuIds){
+	constructor(fuIds,option){
 		
 		
-		this.fileUploadK = this._factoryFileUploadK(fuIds); // 拡張ファイルアップロード・オブジェクト
+		this.fileUploadK = this._factoryFileUploadK(fuIds,option); // 拡張ファイルアップロード・オブジェクト
 		
 		this.fuIds = fuIds; // file要素idリスト
 		this.fields = this._fueIdsToFields(fuIds); // FUフィールドリスト
@@ -122,9 +124,10 @@ class CbFileUploadComponent{
 	/**
 	 * 拡張ファイルアップロード・コンポーネントのファクトリーメソッド
 	 * @param array fuIds file要素idリスト
+	 * @param object option FileUploadK:addEventのoption
 	 * @return FileUploadK 拡張ファイルアップロード・コンポーネント
 	 */
-	_factoryFileUploadK(fuIds){
+	_factoryFileUploadK(fuIds,option){
 		
 		// 拡張ファイルアップロードクラスの生成
 		var fileUploadK = new FileUploadK({
@@ -135,14 +138,13 @@ class CbFileUploadComponent{
 			'img_height':120,
 			});
 		
+		
 		// file要素を拡張
 		for(var i in fuIds){
 			var fue_id = fuIds[i];
-			fileUploadK.addEvent(fue_id);
+			fileUploadK.addEvent(fue_id,option);
 		}
-		
-		
-		
+
 		return fileUploadK;
 		
 	}
